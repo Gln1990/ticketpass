@@ -1,6 +1,6 @@
-# 🎫 TicketPass - Sistema de Venda de Ingressos
+# 🎫 TicketRosario - Sistema de Venda de Ingressos
 
-O **TicketPass** é uma aplicação web completa desenvolvida para listagem, gerenciamento e visualização de detalhes de eventos e ingressos (como shows, peças de teatro e partidas de futebol). O sistema conta com uma interface moderna, totalmente responsiva e integrada a um banco de dados relacional para persistência de dados.
+O **TicketRosario** é uma aplicação web completa desenvolvida para listagem, gerenciamento e visualização de detalhes de eventos e ingressos (como shows, peças de teatro e partidas de futebol). O sistema conta com uma interface moderna, totalmente responsiva e integrada a um banco de dados relacional para persistência de dados.
 
 ---
 
