@@ -69,6 +69,6 @@ O projeto foi construído utilizando as melhores práticas de desenvolvimento de
 
 ## 👤 Desenvolvedor
 
-* **Seu Nome Completo**
+* **Gleyson Caninde do Rosário**
     * [LinkedIn](https://linkedin.com/in/gleyson-rosario/)
     * [GitHub](https://github.com/Gln1990)
