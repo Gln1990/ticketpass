@@ -2,74 +2,86 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Evento</title>
+    <title>TicketRosario - Detalhes do Evento</title>
     <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-logo">
-            <span class="logo-icone">🎫</span>
-            <span class="logo-texto">TicketPass</span>
-        </div>
-        <div class="nav-links">
-            <a href="/eventos">← Voltar para a Home</a>
-        </div>
-    </nav>
+<div class="menu-app">
 
-    <div class="container">
-        <div class="container-detalhes">
-            <div class="banner-container">
-                <img th:src="@{'/imagens/' + ${evento.nomeImagem}}" alt="Banner do Evento">
+    <header class="hero" style="min-height: 25vh; padding-bottom: 40px;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Detalhes do Evento</h1>
+            <p class="eyebrow" style="margin-top: 5px;">TICKETROSARIO EXPERIENCE</p>
+        </div>
+    </header>
+
+    <main class="detalhes-layout">
+        
+        <section>
+            <img th:src="@{'/imagens/' + ${evento.nomeImagem}}" alt="Banner do Evento" class="banner-detalhe">
+            
+            <div class="info-principal-box">
+                <h1 th:text="${evento.nome}">Nome do Show</h1>
+                <p class="menu-desc" style="font-size: 1.1rem; line-height: 1.8;">
+                    <strong>📍 Localização:</strong> <span th:text="${evento.local}">Allianz Parque</span><br>
+                    <strong>📅 Horário:</strong> <span th:text="${#temporals.format(evento.dataEvento, 'dd/MM/yyyy - HH:mm')}">Data</span><br>
+                    <strong>🎟️ Setores Inclusos:</strong> <span th:text="${evento.tiposIngresso}">Pista, Premium</span>
+                </p>
             </div>
 
-            <div class="conteudo-detalhes">
-                <div>
-                    <h1 th:text="${evento.nome}">Nome do Evento</h1>
-                    <p><strong>📍 Local:</strong> <span th:text="${evento.local}">Local</span></p>
-                    <p><strong>📅 Data e Hora:</strong> <span th:text="${#temporals.format(evento.dataEvento, 'dd/MM/yyyy HH:mm')}">Data</span></p>
-                    
-                    <h2>Line-up / Artistas</h2>
-                    <p th:text="${evento.artistas}">Nomes dos artistas...</p>
-                    
-                    <h2>Maiores Sucessos</h2>
-                    <p th:text="${evento.maioresSucessos}">Músicas de sucesso...</p>
-                    
-                    <h2>Histórico em São Paulo</h2>
-                    <p>Esse artista/elenco já se apresentou <strong th:text="${evento.vezesEmSp}">0</strong> vezes em São Paulo!</p>
-                    
-                    <h2>Setores Disponíveis</h2>
-                    <p><strong>Tipos de Ingresso:</strong> <span th:text="${evento.tiposIngresso}">Pista, VIP...</span></p>
+            <div class="bloco-conteudo">
+                <h2>Line-Up & Artistas</h2>
+                <p class="menu-desc" th:text="${evento.artistas}">Artistas confirmados para a noite.</p>
+            </div>
 
-                    <h2>Como Chegar</h2>
-                    <div class="mapa-container">
-                        <iframe th:src="${evento.linkMapa}" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
+            <div class="bloco-conteudo">
+                <h2>Setlist / Maiores Sucessos esperados</h2>
+                <p class="menu-note" style="font-size: 1.05rem;" th:text="${evento.maioresSucessos}">Músicas marcantes do show.</p>
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            
+            <div class="notice-board" style="text-align: center; padding: 35px 25px;">
+                <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; margin-bottom: 10px;">Garanta seu Lugar</h2>
+                <p class="menu-note" style="margin-bottom: 20px;" th:text="'Disponibilidade: ' + ${evento.quantidadeDisponivel} + ' ingressos em estoque'"></p>
+                
+                <div style="margin-bottom: 25px;">
+                    <span style="font-size: 1rem; color: #666; display: block;">A partir de</span>
+                    <span class="price" style="font-size: 2.8rem; color: #4c89a8;" th:text="'R$ ' + ${evento.precoBase}">R$ 0.00</span>
                 </div>
+                
+                <a th:href="@{/eventos/comprar/{id}(id=${evento.idEvento})}" class="btn-comprar-agora">🎟️ COMPRAR INGRESSO</a>
+                
+                <a th:href="@{/eventos}" class="btn-voltar-link">← Voltar para a Galeria</a>
+            </div>
 
-                <div class="box-compra">
-                    <p>A partir de</p>
-                    <div class="preco-detalhes" th:text="'R$ ' + ${evento.precoBase}">R$ 0.00</div>
-                    <p>Disponíveis: <span th:text="${evento.quantidadeDisponivel}">0</span> ingressos</p>
-                    <a th:href="@{/eventos/comprar/{id}(id=${evento.idEvento})}" class="btn-comprar">Garantir Ingresso</a>
+            <div class="drinks-board">
+                <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; margin-bottom: 5px;">Como Chegar</h2>
+                <p class="menu-note" style="font-size: 0.85rem; margin-bottom: 10px;">Visualize a rota integrada abaixo:</p>
+                
+                <div class="mapa-container">
+                    <iframe th:src="${evento.linkMapa}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <footer>
-        <div class="footer-conteudo">
-            <div class="footer-contatos">
-                <p><strong>📞 Suporte:</strong> (11) 4002-8922</p>
-                <p><strong>✉️ E-mail:</strong> contato@ticketpass.com.br</p>
+            <div class="status-box">
+                <p>HISTÓRICO NA CIDADE</p>
+                <h3 th:text="${evento.vezesEmSp} + 'ª vez em SP'">1ª vez em SP</h3>
             </div>
-            <div class="footer-creditos">
-                <p>&copy; 2026 TicketPass Inc. Todos os direitos reservados.</p>
-                <p>Desenvolvido por: <strong>Gleyson Rosário</strong></p>
-            </div>
-        </div>
+        </aside>
+        
+    </main>
+
+    <footer class="footer">
+        <p>TicketRosario Inc. • Plataforma Segura de Ingressos</p>
+        <p>Suporte 24h • Atendimento ao Cliente</p>
+		<p>Desenvolvido por Gleyson Rosário</p>
     </footer>
+</div>
 
 </body>
 </html>

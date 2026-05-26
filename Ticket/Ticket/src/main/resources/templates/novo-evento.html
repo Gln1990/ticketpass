@@ -2,87 +2,100 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Novo Evento</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 40px; }
-        .box { max-width: 500px; background: white; padding: 30px; margin: 0 auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { color: #333; margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        label { font-weight: bold; display: block; margin-bottom: 5px; }
-        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-salvar { background-color: #007bff; color: white; padding: 12px; border: none; border-radius: 4px; width: 100%; font-size: 16px; cursor: pointer; margin-top: 10px; }
-        .btn-salvar:hover { background-color: #0056b3; }
-        .btn-voltar { display: block; text-align: center; margin-top: 15px; color: #666; text-decoration: none; }
-    </style>
+    <title>TicketRosario - Cadastrar Novo Evento</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    
 </head>
 <body>
 
-<div class="box">
-    <h1>Cadastrar Novo Evento</h1>
-    
-    <form th:action="@{/eventos/salvar}" method="POST" enctype="multipart/form-data">
-        
-        <div class="form-group">
-            <label>Nome do Evento:</label>
-            <input type="text" name="nome" placeholder="Ex: Show da Ivete Sangalo" required />
-        </div>
-        
-        <div class="form-group">
-            <label>Local:</label>
-            <input type="text" name="local" placeholder="Ex: Allianz Parque" required />
-        </div>
-        
-        <div class="form-group">
-            <label>Data e Horário:</label>
-            <input type="datetime-local" name="dataEvento" required />
-        </div>
-        
-        <div class="form-group">
-            <label>Preço do Ingresso (R$):</label>
-            <input type="number" name="precoBase" step="0.01" placeholder="0.00" required />
-        </div>
-        
-        <div class="form-group">
-            <label>Quantidade de Ingressos (Estoque):</label>
-            <input type="number" name="quantidadeDisponivel" placeholder="Ex: 150" required />
-        </div>
+<div class="menu-app">
 
-        <div class="form-group">
-            <label>Upload da Imagem (Banner):</label>
-            <input type="file" name="nomeImagem" accept="image/*" required />
+    <header class="hero" style="min-height: 25vh; padding-bottom: 40px;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Painel de Controle</h1>
+            <p class="eyebrow" style="margin-top: 5px;">CRIAR NOVAS ATRAÇÕES</p>
         </div>
+    </header>
 
-        <div class="form-group">
-            <label>Artistas / Line-up:</label>
-            <input type="text" name="artistas" placeholder="Ex: Ivete Sangalo, Banda Eva" required />
+    <main class="cadastro-container">
+        <div class="formulario-box">
+            <h1>Novo Evento</h1>
+            <p class="subtitulo-form">Preencha os dados no sistema da bilheteria</p>
+
+            <form th:action="@{/eventos/salvar}" method="POST" enctype="multipart/form-data">
+                <div class="form-grid">
+                    
+                    <div class="form-group form-group-full">
+                        <label>Nome do Evento:</label>
+                        <input type="text" name="nome" placeholder="Ex: Show Internacional da Taylor Swift" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>📍 Local / Estádio:</label>
+                        <input type="text" name="local" placeholder="Ex: Allianz Parque" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>📅 Data e Horário:</label>
+                        <input type="datetime-local" name="dataEvento" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>💰 Preço Inicial do Ingresso (R$):</label>
+                        <input type="number" name="precoBase" step="0.01" placeholder="0.00" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>📦 Lote Inicial (Estoque):</label>
+                        <input type="number" name="quantidadeDisponivel" placeholder="Ex: 25000" required />
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label>🖼️ Banner do Evento (Upload de arquivo):</label>
+                        <input type="file" name="nomeImagem" accept="image/*" required />
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label>🎤 Line-Up Completo (Separado por vírgula):</label>
+                        <input type="text" name="artistas" placeholder="Ex: Taylor Swift, Sabrina Carpenter" required />
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label>🎵 Setlist / Maiores Sucessos Esperados:</label>
+                        <input type="text" name="maioresSucessos" placeholder="Ex: Cruel Summer, Blank Space, Shake It Off" required />
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label>🗺️ Link de Incorporação do Google Maps (URL do iframe src):</label>
+                        <input type="text" name="linkMapa" placeholder="Cole apenas o link https://www.google.com/maps/embed..." required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>🏢 Vezes que já se apresentou em SP:</label>
+                        <input type="number" name="vezesEmSp" placeholder="Ex: 4" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>🎟️ Setores e Tipos de Ingressos:</label>
+                        <input type="text" name="tiposIngresso" placeholder="Ex: Pista, Pista Premium, Cadeira Inferior" required />
+                    </div>
+
+                </div>
+
+                <div class="botoes-container">
+                    <button type="submit" class="btn-enviar-evento">🚀 CADASTRAR EVENTO NO MYSQL</button>
+                    <a th:href="@{/eventos}" class="btn-cancelar-link">Cancelar e Voltar para a Lista</a>
+                </div>
+            </form>
         </div>
+    </main>
 
-        <div class="form-group">
-            <label>Maiores Sucessos (Músicas/Piadas):</label>
-            <input type="text" name="maioresSucessos" placeholder="Ex: Sorte Grande, Festa, Poeira" required />
-        </div>
-
-        <div class="form-group">
-            <label>Link de Incorporação do Google Maps (iframe src):</label>
-            <input type="text" name="linkMapa" placeholder="Cole a URL do mapa aqui" required />
-        </div>
-
-        <div class="form-group">
-            <label>Quantas vezes já se apresentou em SP?</label>
-            <input type="number" name="vezesEmSp" placeholder="Ex: 12" required />
-        </div>
-
-        <div class="form-group">
-            <label>Tipos de Ingressos Disponíveis:</label>
-            <input type="text" name="tiposIngresso" placeholder="Ex: Pista, Cadeira Coberta, Pista Premium" required />
-        </div>
-
-        <button type="submit" class="btn-salvar">Cadastrar Evento</button>
-    </form>
-    
-    <div style="margin-top: 15px; text-align: center;">
-        <a href="/eventos" class="btn-voltar">Voltar para a Lista</a>
+    <footer class="footer">
+        <p>TicketRosario Inc. • Área Interna e Administrativa Segura</p>
+		<p>Desenvolvido por Gleyson Rosário</p>
     </div>
+
 </div>
 
 </body>

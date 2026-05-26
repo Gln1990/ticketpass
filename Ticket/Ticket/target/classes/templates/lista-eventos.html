@@ -2,66 +2,136 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venda de Tickets - Eventos</title>
+    <title>TicketRosario - Bilheteria Oficial</title>
     <link rel="stylesheet" th:href="@{/css/estilo.css}">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-logo">
-            <span class="logo-icone">🎫</span>
-            <span class="logo-texto">TicketPass</span>
-        </div>
-        <div class="nav-links">
-            <a href="/eventos">Página Inicial</a>
-        </div>
-    </nav>
+<div class="menu-app">
 
-    <div class="container-pagina">
-        
-        <header class="banner-boas-vindas">
-            <h1>Eventos Disponíveis</h1>
-            <p>Selecione o evento desejado para realizar a compra do seu ticket.</p>
-			<a th:href="@{/eventos/novo}" class="btn-cadastrar">+ Cadastrar Novo Evento</a>
-            
-        </header>
-
-        <div class="grid-eventos-layout">
-            <div class="card-evento" th:each="evento : ${eventos}">
-                <div class="card-imagem">
-                    <img th:src="@{'/imagens/' + ${evento.nomeImagem}}" alt="Imagem do Evento">
-                </div>
-				<div class="card-corpo">
-				    <div class="card-titulo" th:text="${evento.nome}">Nome do Evento</div>
-				    <div class="card-info"><strong>📍 Local:</strong> <span th:text="${evento.local}">Local</span></div>
-				    <div class="card-info"><strong>📅 Data:</strong> <span th:text="${#temporals.format(evento.dataEvento, 'dd/MM/yyyy HH:mm')}">Data</span></div>
-				    <div class="card-preco" th:text="'R$ ' + ${evento.precoBase}">R$ 0.00</div>
-				    
-				    <a th:href="@{/eventos/detalhes/{id}(id=${evento.idEvento})}" class="btn-detalhes">Ver Detalhes</a>
-				    
-				    <a th:href="@{'/eventos/excluir/' + ${evento.idEvento}}" 
-				       class="btn-excluir" 
-				       onclick="return confirm('Tem certeza que deseja excluir este evento?');"> 
-				       ❌ Excluir Evento
-				    </a>
-				</div>
-            </div>
-        </div>
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="eyebrow">SUA BILHETERIA DIGITAL DE EVENTOS</p>
+      <h1>TicketRosario<br>Premium Club</h1>
+      <p class="tagline">
+        Garanta seus ingressos antes que esgotem.
+      </p>
+      <div class="forecast">
+        🌤 Status dos Eventos hoje:
+        <span>100% de satisfação • Ingressos voando!</span>
+      </div>
     </div>
+  </header>
 
-    <footer>
-        <div class="footer-conteudo">
-            <div class="footer-contatos">
-                <p><strong>📞 Suporte:</strong> (11) 4002-8922</p>
-                <p><strong>✉️ E-mail:</strong> contato@ticketpass.com.br</p>
-            </div>
-            <div class="footer-creditos">
-                <p>&copy; 2026 TicketPass Inc. Todos os direitos reservados.</p>
-                <p>Desenvolvido por: <strong>Gleyson Rosário</strong></p>
+  <div style="text-align: center; margin-top: 30px;">
+      <a th:href="@{/eventos/novo}" style="display: inline-block; background: #ff8b6b; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px;">
+        ➕ CADASTRAR NOVO EVENTO
+      </a>
+  </div>
+
+  <main class="menu-layout">
+    
+    <section class="menu-section">
+      
+      <div class="section-title">
+        <h2>Evento em Destaque</h2>
+      </div>
+
+      <article class="featured-card" th:if="${not #lists.isEmpty(eventos)}" th:with="destaque=${eventos[0]}">
+        <div class="sticker">MAIS VENDIDO</div>
+        <h3 th:text="${destaque.nome}">Nome do Show Principal</h3>
+        
+        <p class="menu-desc">
+          <strong>📍 Local:</strong> <span th:text="${destaque.local}">Allianz Parque</span> <br>
+          <strong>📅 Data:</strong> <span th:text="${#temporals.format(destaque.dataEvento, 'dd/MM/yyyy HH:mm')}">00/00/0000</span>
+        </p>
+        
+        <p class="menu-note" th:text="'Atrações confirmadas: ' + ${destaque.artistas}">
+          Line-up dos artistas.
+        </p>
+        
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+            <span class="price" th:text="'R$ ' + ${destaque.precoBase}">R$ 0.00</span>
+            <div>
+                <a th:href="@{/eventos/detalhes/{id}(id=${destaque.idEvento})}" style="background: #4c89a8; color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-right: 10px;">Ver Detalhes</a>
+                <a th:href="@{'/eventos/excluir/' + ${destaque.idEvento}}" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir?');" style="background: #dc3545; color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; font-weight: bold;">❌ Excluir</a>
             </div>
         </div>
-    </footer>
+      </article>
+
+      <div class="section-title">
+        <h2>Próximas Atrações</h2>
+      </div>
+
+      <div class="menu-grid">
+        <article class="menu-card" th:each="evento : ${eventos}">
+          <h3 th:text="${evento.nome}">Nome do Show</h3>
+          
+          <p class="menu-desc" style="font-size: 0.9rem;">
+            <strong>📍 Local:</strong> <span th:text="${evento.local}">Local</span> <br>
+            <strong>📅 Data:</strong> <span th:text="${#temporals.format(evento.dataEvento, 'dd/MM/yyyy HH:mm')}">Data</span> <br>
+            <span style="color: #666; font-style: italic;" th:text="'Setores: ' + ${evento.tiposIngresso}">Pista</span>
+          </p>
+
+          <p class="menu-note" th:text="'Estoque: ' + ${evento.quantidadeDisponivel} + ' restantes.'">
+            Quantidade em estoque.
+          </p>
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 15px; border-top: 1px dashed rgba(0,0,0,0.1);">
+              <span th:text="'R$ ' + ${evento.precoBase}">R$ 0.00</span>
+              <div style="display: flex; gap: 5px;">
+                  <a th:href="@{/eventos/detalhes/{id}(id=${evento.idEvento})}" style="color: #4c89a8; font-weight: bold; text-decoration: none; font-size: 0.9rem;">Ver</a>
+                  <a th:href="@{'/eventos/excluir/' + ${evento.idEvento}}" onclick="return confirm('Excluir?');" style="color: #dc3545; font-weight: bold; text-decoration: none; font-size: 0.9rem;">❌</a>
+              </div>
+          </div>
+        </article>
+      </div>
+      
+    </section>
+
+    <aside class="sidebar">
+      <div class="notice-board">
+        <h2>Regras Gerais</h2>
+        <ul>
+          <li>⚠ Proibida a entrada com objetos cortantes</li>
+          <li>⚠ Classificação indicativa sob consulta</li>
+          <li>⚠ Apresente seu QR Code / Voucher na portaria</li>
+          <li>⚠ Chegue com 1 hora de antecedência</li>
+        </ul>
+      </div>
+
+      <div class="drinks-board">
+        <h2>Taxas de Serviço</h2>
+        <div class="drink-item">
+          <span>Taxa de Conveniência</span>
+          <strong>R$ 0 (Grátis)</strong>
+        </div>
+        <div class="drink-item">
+          <span>Cancelamento (até 7 dias)</span>
+          <strong>Reembolso 100%</strong>
+        </div>
+        <div class="drink-item">
+          <span>Emissão de Voucher PDF</span>
+          <strong>Grátis</strong>
+        </div>
+      </div>
+
+      <div class="status-box">
+        <p>DISPONIBILIDADE DE INGRESSOS</p>
+        <h3>ALTA</h3>
+      </div>
+    </aside>
+    
+  </main>
+
+  <footer class="footer">
+    <p>TicketRosario Inc. • Plataforma Segura de Ingressos</p>
+    <p>Suporte 24h • Atendimento ao Cliente</p>
+    <p>contato@ticketrosario.com</p>
+	<p>Desenvolvido por Gleyson Rosário</p>
+  </footer>
+</div>
 
 </body>
 </html>

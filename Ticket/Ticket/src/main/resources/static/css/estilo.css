@@ -1,195 +1,769 @@
-/* ==========================================
-   CONFIGURAÇÕES GLOBAIS E RESET
-   ========================================== */
-* { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;700&family=Permanent+Marker&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body { 
-    font-family: 'Segoe UI', Arial, sans-serif; 
-    background-color: #f0f2f5; 
-    color: #333; 
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+body {
+  background: #f3ead7;
+  font-family: "Inter", sans-serif;
+  color: #1f3a4d;
 }
 
-/* Container que centraliza e alinha perfeitamente com o menu */
-.container-pagina { 
-    width: 100%;
-    max-width: 1400px; /* Alarga o site para caber vários cards lado a lado */
-    margin: 0 auto; 
-    padding: 30px;
-    flex: 1;
+.menu-app {
+  min-height: 100vh;
 }
 
-/* ==========================================
-   NAVBAR (CABEÇALHO)
-   ========================================== */
-.navbar {
-    background-color: #111215;
-    color: white;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+/* ==========================================================================
+   CABEÇALHO (HERO) - ATUALIZADO COM IMAGEM DE SHOW / PESSOAS CURTINDO
+   ========================================================================== */
+.hero {
+  position: relative;
+  min-height: 60vh;
+  /* Nova imagem de fundo: multidão em um show/festival animado */
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1974&auto=format&fit=crop")
+      center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  padding-bottom: 120px;
 }
 
-/* Alinha o conteúdo interno da navbar com o limite do site */
-.navbar-conteudo {
-    width: 100%;
-    max-width: 1340px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.hero::after {
+  content: "⚠ TICKET SECURITY";
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  background: #ff8b6b;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
 }
 
-.nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  color: white;
 }
 
-.logo-icone { font-size: 1.8rem; }
-.logo-texto {
-    font-size: 1.4rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-    background: linear-gradient(45deg, #007bff, #00ff88);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.eyebrow {
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  opacity: 0.8;
 }
 
-.nav-links a {
-    color: #bbb;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-.nav-links a:hover { color: white; }
-
-/* ==========================================
-   ELEMENTOS DA PÁGINA INICIAL
-   ========================================== */
-.banner-boas-vindas {
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    margin-bottom: 30px;
-    text-align: center;
+.hero h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(4rem, 10vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: 2px;
 }
 
-h1 { color: #111; font-size: 2.2rem; margin-bottom: 10px; }
-.banner-boas-vindas p { color: #666; margin-bottom: 20px; font-size: 1.1rem; }
-
-.btn-cadastrar { 
-    display: inline-block; background-color: #007bff; color: white; 
-    padding: 12px 24px; text-decoration: none; border-radius: 8px; 
-    font-weight: bold; transition: background 0.2s;
-}
-.btn-cadastrar:hover { background-color: #0056b3; }
-
-/* Grid responsivo moderno que coloca os cards lado a lado */
-.grid-eventos-layout { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-    gap: 25px; 
-    width: 100%;
+.tagline {
+  margin-top: 18px;
+  font-size: 1.2rem;
 }
 
-.card-evento { 
-    background: white; border-radius: 12px; overflow: hidden; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex;
-    flex-direction: column;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.card-evento:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-
-.card-imagem { width: 100%; height: 180px; overflow: hidden; background-color: #ddd; }
-.card-imagem img { width: 100%; height: 100%; object-fit: cover; }
-.card-corpo { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-.card-titulo { font-size: 1.25rem; color: #111; margin-bottom: 10px; font-weight: bold; min-height: 50px; }
-.card-info { font-size: 0.9rem; color: #555; margin-bottom: 8px; }
-.card-preco { font-size: 1.4rem; color: #28a745; font-weight: bold; margin: 15px 0 mt: auto; }
-
-.btn-detalhes { 
-    display: block; background-color: #007bff; color: white; text-align: center; 
-    padding: 10px; text-decoration: none; border-radius: 6px; font-weight: bold; transition: background 0.2s;
-    margin-top: auto;
-}
-.btn-detalhes:hover { background-color: #0056b3; }
-
-/* ==========================================
-   PÁGINA DE DETALHES DO EVENTO
-   ========================================== */
-.container-detalhes { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-.banner-container { width: 100%; height: 350px; overflow: hidden; }
-.banner-container img { width: 100%; height: 100%; object-fit: cover; }
-.conteudo-detalhes { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; padding: 30px; }
-h2 { color: #007bff; margin-top: 20px; margin-bottom: 10px; font-size: 1.3rem; border-bottom: 2px solid #f0f2f5; padding-bottom: 5px; }
-.conteudo-detalhes p { margin-bottom: 10px; line-height: 1.6; color: #555; }
-
-.box-compra { background: #f8f9fa; border: 1px solid #eee; padding: 20px; border-radius: 8px; height: fit-content; text-align: center; }
-.preco-detalhes { font-size: 1.8rem; color: #28a745; font-weight: bold; margin-bottom: 15px; }
-.btn-comprar { display: block; background: #28a745; color: white; text-align: center; padding: 12px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; }
-.btn-comprar:hover { background: #218838; }
-
-.mapa-container { position: relative; width: 100%; height: 250px; margin-top: 15px; border-radius: 8px; overflow: hidden; }
-.mapa-container iframe { width: 100%; height: 100%; border: 0; }
-
-.btn-excluir {
-    display: inline-block;
-    background-color: #dc3545; /* Vermelho padrão de erro/alerta */
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-    transition: background 0.3s;
+.forecast {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 14px 30px;
+  border-radius: 14px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.btn-excluir:hover {
-    background-color: #c82333; /* Vermelho mais escuro ao passar o mouse */
+/* ==========================================================================
+   ESTILOS DE LAYOUT (GRID E SIDEBAR)
+   ========================================================================== */
+.menu-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  padding: 50px 6%;
 }
 
-/* ==========================================
-   FOOTER (RODAPÉ)
-   ========================================== */
-footer {
-    background-color: #111215;
-    color: #aaa;
-    padding: 25px 20px;
-    margin-top: auto;
-    border-top: 3px solid #007bff;
+.section-title {
+  margin-bottom: 20px;
 }
 
-.footer-conteudo {
-    max-width: 1340px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
+.section-title h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
 }
 
-.footer-contatos p { font-size: 0.9rem; margin-bottom: 5px; }
-.footer-creditos { font-size: 0.95rem; text-align: right; }
-.footer-creditos strong { color: #007bff; }
+.featured-card {
+  position: relative;
+  background: #fffaf1;
+  border-radius: 24px;
+  padding: 35px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: visible;
+}
 
-/* ==========================================
-   RESPONSIVIDADE (MOBILE)
-   ========================================== */
+.sticker {
+  position: absolute;
+  top: 20px;
+  right: -35px;
+  background: #ff8b6b;
+  color: white;
+  padding: 8px 40px;
+  transform: rotate(18deg);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.featured-card h3 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.menu-desc {
+  max-width: 500px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: #35566c;
+}
+
+.menu-note {
+  font-size: 0.9rem;
+  font-style: italic;
+  opacity: 0.75;
+  margin-bottom: 20px;
+}
+
+.price {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #4c89a8;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+.menu-card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-card:hover {
+  transform: translateY(-6px) rotate(-1deg);
+}
+
+.menu-card h3 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.menu-card p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.menu-card span {
+  color: #ff8b6b;
+  font-weight: bold;
+  margin-top: auto;
+  font-size: 1.2rem;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.notice-board,
+.drinks-board,
+.status-box {
+  background: white;
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.notice-board h2,
+.drinks-board h2 {
+  font-family: "Permanent Marker", cursive;
+  margin-bottom: 18px;
+}
+
+.notice-board ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  line-height: 1.5;
+}
+
+.drink-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.12);
+}
+
+.drink-item:last-child {
+  border-bottom: none;
+}
+
+.status-box {
+  text-align: center;
+  background: #1f3a4d;
+  color: white;
+}
+
+.status-box p {
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.status-box h3 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 40px 20px 60px;
+  line-height: 1.8;
+  color: #35566c;
+}
+
+/* ==========================================================================
+   CLASSES EXCLUSIVAS DA TELA DE DETALHES
+   ========================================================================== */
+.detalhes-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  padding: 40px 6%;
+}
+
+.banner-detalhe {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
+}
+
+.info-principal-box {
+  background: #fffaf1;
+  border-radius: 24px;
+  padding: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+}
+
+.info-principal-box h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: #1f3a4d;
+  margin-bottom: 15px;
+}
+
+.bloco-conteudo {
+  background: white;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  margin-bottom: 25px;
+}
+
+.bloco-conteudo h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  color: #1f3a4d;
+  border-bottom: 2px dashed rgba(0,0,0,0.1);
+  padding-bottom: 5px;
+}
+
+.mapa-container {
+  width: 100%;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  margin-top: 15px;
+}
+
+.btn-comprar-agora {
+  display: block;
+  text-align: center;
+  background: #ff8b6b;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 15px rgba(255, 139, 107, 0.3);
+}
+
+.btn-comprar-agora:hover {
+  transform: translateY(-3px);
+  background: #e57859;
+}
+
+.btn-voltar-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #4c89a8;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn-voltar-link:hover {
+  color: #1f3a4d;
+}
+
+/* ==========================================================================
+   CLASSES EXCLUSIVAS DA TELA DE NOVO EVENTO (CADASTRO)
+   ========================================================================== */
+.cadastro-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.formulario-box {
+  background: #fffaf1;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.formulario-box h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3.5rem;
+  color: #1f3a4d;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.subtitulo-form {
+  font-family: "Permanent Marker", cursive;
+  color: #ff8b6b;
+  text-align: center;
+  margin-bottom: 35px;
+  font-size: 1.1rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.form-group-full {
+  grid-column: span 2;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 700;
+  color: #1f3a4d;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 18px;
+  background: white;
+  border: 2px solid rgba(31, 58, 77, 0.1);
+  border-radius: 12px;
+  font-family: "Inter", sans-serif;
+  color: #1f3a4d;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4c89a8;
+  box-shadow: 0 0 0 4px rgba(76, 137, 168, 0.15);
+}
+
+.form-group input[type="file"] {
+  padding: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.botoes-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.btn-enviar-evento {
+  width: 100%;
+  max-width: 400px;
+  background: #ff8b6b;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 15px rgba(255, 139, 107, 0.3);
+}
+
+.btn-enviar-evento:hover {
+  background: #e57859;
+  transform: translateY(-2px);
+}
+
+.btn-cancelar-link {
+  color: #4c89a8;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn-cancelar-link:hover {
+  color: #1f3a4d;
+}
+
+/* ==========================================================================
+   CLASSES EXCLUSIVAS DA TELA DE CHECKOUT
+   ========================================================================== */
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  padding: 40px 6%;
+}
+
+.checkout-box {
+  background: #fffaf1;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.checkout-box h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3.5rem;
+  color: #1f3a4d;
+  margin-bottom: 5px;
+}
+
+.subtitulo-checkout {
+  font-family: "Permanent Marker", cursive;
+  color: #ff8b6b;
+  margin-bottom: 35px;
+  font-size: 1.1rem;
+}
+
+.alert-erro {
+  background-color: #f8d7da;
+  border: 2px dashed #dc3545;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.resumo-evento {
+  border-bottom: 2px dashed rgba(31, 58, 77, 0.1);
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.resumo-evento h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2.2rem;
+  color: #1f3a4d;
+  margin-bottom: 10px;
+}
+
+.form-checkout-group {
+  margin-bottom: 25px;
+}
+
+.form-checkout-group label {
+  display: block;
+  font-weight: 700;
+  color: #1f3a4d;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-checkout-group input {
+  width: 100%;
+  max-width: 200px;
+  padding: 12px 18px;
+  background: white;
+  border: 2px solid rgba(31, 58, 77, 0.1);
+  border-radius: 12px;
+  font-family: "Inter", sans-serif;
+  color: #1f3a4d;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.form-checkout-group input:focus {
+  outline: none;
+  border-color: #4c89a8;
+  box-shadow: 0 0 0 4px rgba(76, 137, 168, 0.15);
+}
+
+.btn-finalizar-compra {
+  width: 100%;
+  background: #ff8b6b;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 15px rgba(255, 139, 107, 0.3);
+}
+
+.btn-finalizar-compra:hover {
+  background: #e57859;
+  transform: translateY(-2px);
+}
+
+.cancelar-compra {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: #4c89a8;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cancelar-compra:hover {
+  color: #1f3a4d;
+}
+
+/* ==========================================================================
+   CLASSES EXCLUSIVAS DA TELA DE SUCESSO (RECIBO)
+   ========================================================================== */
+.sucesso-container {
+  max-width: 650px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+.recibo-box {
+  background: #fffaf1;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.carimbo-sucesso {
+  position: absolute;
+  top: 25px;
+  right: 15px;
+  border: 4px double #4c89a8;
+  color: #4c89a8;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.8rem;
+  padding: 5px 15px;
+  transform: rotate(15deg);
+  border-radius: 8px;
+  opacity: 0.85;
+  letter-spacing: 1px;
+}
+
+.recibo-box h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 4rem;
+  color: #1f3a4d;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.subtitulo-sucesso {
+  font-family: "Permanent Marker", cursive;
+  color: #ff8b6b;
+  margin-bottom: 35px;
+  font-size: 1.2rem;
+}
+
+.ticket-recibo-detalhes {
+  background: white;
+  border: 2px dashed rgba(31, 58, 77, 0.15);
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.ticket-recibo-detalhes h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2.2rem;
+  color: #1f3a4d;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding-bottom: 5px;
+}
+
+.linha-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
+  font-size: 0.95rem;
+}
+
+.linha-info:last-of-type {
+  border-bottom: none;
+}
+
+.bloco-total {
+  background: #1f3a4d;
+  color: white;
+  border-radius: 12px;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.bloco-total span {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+}
+
+.bloco-total strong {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2.2rem;
+  color: #ff8b6b;
+  letter-spacing: 1px;
+}
+
+.btn-voltar-home {
+  display: inline-block;
+  background: #ff8b6b;
+  color: white;
+  padding: 14px 35px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 15px rgba(255, 139, 107, 0.3);
+  margin-top: 10px;
+}
+
+.btn-voltar-home:hover {
+  background: #e57859;
+  transform: translateY(-2px);
+}
+
+.instrucoes-rodape {
+  margin-top: 25px;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .menu-layout, .detalhes-layout, .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
-    .conteudo-detalhes { grid-template-columns: 1fr; }
-    .footer-conteudo { flex-direction: column; text-align: center; }
-    .footer-creditos { text-align: center; }
-    .grid-eventos-layout { grid-template-columns: 1fr; }
-    .container-pagina { padding: 15px; }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-group-full {
+    grid-column: span 1;
+  }
+  .formulario-box {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 4rem;
+  }
+
+  .hero::after {
+    left: 50%;
+    right: auto;
+    bottom: 25px;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    padding: 8px 14px;
+  }
+
+  .featured-card h3 {
+    font-size: 2.2rem;
+  }
+
+  .menu-card h3 {
+    font-size: 1.6rem;
+  }
+
+  .menu-layout, .detalhes-layout, .checkout-layout {
+    padding: 40px 20px;
+  }
 }

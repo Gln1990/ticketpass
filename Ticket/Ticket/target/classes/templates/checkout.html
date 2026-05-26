@@ -2,43 +2,78 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Checkout - Selecionar Ingressos</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 40px; }
-        .box { max-width: 500px; background: white; padding: 30px; margin: 0 auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { color: #333; }
-        .info { background: #e9ecef; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
-        .form-group { margin-bottom: 20px; text-align: left; }
-        label { font-weight: bold; display: block; margin-bottom: 5px; }
-        input[type="number"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-confirmar { background-color: #28a745; color: white; padding: 12px; border: none; border-radius: 4px; width: 100%; font-size: 16px; cursor: pointer; }
-        .btn-confirmar:hover { background-color: #218838; }
-        .erro { color: red; font-weight: bold; margin-top: 10px; }
-    </style>
+    <title>TicketRosario - Finalizar Compra</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    
 </head>
 <body>
 
-<div class="box">
-    <h1>Confirmar Compra</h1>
-    
-    <div class="info">
-        <p><strong>Evento:</strong> <span th:text="${evento.nome}">Nome</span></p>
-        <p><strong>Preço Unitário:</strong> R$ <span th:text="${evento.precoBase}">0.00</span></p>
-        <p><strong>Disponível no Estoque:</strong> <span th:text="${evento.quantidadeDisponivel}">0</span> ingressos</p>
-    </div>
+<div class="menu-app">
 
-    <form th:action="@{/eventos/confirmar-compra}" method="POST">
-        <input type="hidden" name="idEvento" th:value="${evento.idEvento}" />
-        
-        <div class="form-group">
-            <label for="quantidade">Quantidade de Ingressos:</label>
-            <input type="number" id="quantidade" name="quantidade" min="1" max="10" value="1" required />
+    <header class="hero" style="min-height: 25vh; padding-bottom: 40px;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Checkout Seguro</h1>
+            <p class="eyebrow" style="margin-top: 5px;">QUASE LÁ! REVISE SEU PEDIDO</p>
         </div>
+    </header>
 
-        <div class="erro" th:if="${erro}" th:text="${erro}"></div>
+    <main class="checkout-layout">
+        
+        <section class="checkout-box">
+            <h1>Confirmar Pedido</h1>
+            <p class="subtitulo-checkout">Os seus ingressos estão reservados por tempo limitado</p>
 
-        <button type="submit" class="btn-confirmar">Finalizar e Calcular Total</button>
-    </form>
+            <div class="alert-erro" th:if="${erro != null}" th:text="${erro}">
+                Erro de validação de estoque aqui.
+            </div>
+
+            <div class="resumo-evento">
+                <h2 th:text="${evento.nome}">Nome do Evento</h2>
+                <p class="menu-desc" style="font-size: 1.05rem;">
+                    <strong>📍 Local:</strong> <span th:text="${evento.local}">Local</span> <br>
+                    <strong>📅 Data:</strong> <span th:text="${#temporals.format(evento.dataEvento, 'dd/MM/yyyy HH:mm')}">Data</span> <br>
+                    <strong>🎟️ Setores disponíveis:</strong> <span th:text="${evento.tiposIngresso}">Pista</span>
+                </p>
+            </div>
+
+            <form th:action="@{/eventos/confirmar-compra}" method="POST">
+                
+                <input type="hidden" name="idEvento" th:value="${evento.idEvento}" />
+
+                <div class="form-checkout-group">
+                    <label>Selecione a quantidade de ingressos:</label>
+                    <input type="number" name="quantidade" value="1" min="1" max="10" required />
+                    <p class="menu-note" style="margin-top: 8px;" th:text="'Preço unitário: R$ ' + ${evento.precoBase}"></p>
+                </div>
+
+                <button type="submit" class="btn-finalizar-compra">🛒 CONFIRMAR E ABATER ESTOQUE</button>
+                <a th:href="@{/eventos/detalhes/{id}(id=${evento.idEvento})}" class="cancelar-compra">Desistir e voltar</a>
+            </form>
+        </section>
+
+        <aside class="sidebar">
+            <div class="notice-board">
+                <h2>Importante</h2>
+                <ul>
+                    <li>🔒 Conexão criptografada SSL segura.</li>
+                    <li>⚡ O valor total será calculado automaticamente na próxima página.</li>
+                    <li>📧 O recibo será associado ao sistema do evento.</li>
+                </ul>
+            </div>
+
+            <div class="status-box">
+                <p>ESTADO DA RESERVA</p>
+                <h3>GARANTIDA</h3>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer class="footer">
+        <p>TicketGleyson Inc. • Transações seguras via Spring Boot & MySQL</p>
+		<p>Desenvolvido por Gleyson Rosário</p>
+    </footer>
 </div>
 
 </body>

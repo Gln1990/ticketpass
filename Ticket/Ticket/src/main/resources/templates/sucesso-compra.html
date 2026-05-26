@@ -2,31 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Compra Realizada!</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 40px; text-align: center; }
-        .card { max-width: 500px; background: white; padding: 30px; margin: 0 auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { color: #28a745; }
-        .detalhes { background-color: #f8f9fa; border-left: 5px solid #28a745; padding: 15px; text-align: left; margin: 20px 0; border-radius: 4px; }
-        .btn-voltar { background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block; margin-top: 10px; }
-        .btn-voltar:hover { background-color: #0056b3; }
-    </style>
+    <title>TicketRosario - Compra Confirmada!</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    
 </head>
 <body>
 
-<div class="card">
-    <h1>✓ Compra Confirmada!</h1>
-    <p>Seu ticket digital foi gerado com sucesso.</p>
-    
-	<div class="detalhes">
-	        <h3>Resumo do Voucher:</h3>
-	        <p><strong>Evento:</strong> <span th:text="${evento.nome}">Nome</span></p>
-	        <p><strong>Local:</strong> <span th:text="${evento.local}">Local</span></p>
-	        <p><strong>Quantidade:</strong> <span th:text="${quantidadeComprada}">1</span> ingresso(s)</p>
-	        <p><strong>Valor Total Pago:</strong> <span th:text="'R$ ' + ${valorTotal}">R$ 0.00</span></p>
-	    </div>
+<div class="menu-app">
 
-    <a href="/eventos" class="btn-voltar">Voltar para Eventos</a>
+    <header class="hero" style="min-height: 25vh; padding-bottom: 40px;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Pedido Concluído</h1>
+            <p class="eyebrow" style="margin-top: 5px;">OBRIGADO POR COMPRAR NO TICKETPASS</p>
+        </div>
+    </header>
+
+    <main class="sucesso-container">
+        <div class="recibo-box">
+            
+            <div class="carimbo-sucesso">✓ PAGO</div>
+
+            <h1>Sua Compra deu Certo!</h1>
+            <p class="subtitulo-sucesso">Prepare a sua emoção, o seu lugar está garantido</p>
+
+            <div class="ticket-recibo-detalhes">
+                <h2 th:text="${evento.nome}">Nome do Evento</h2>
+                
+                <div class="linha-info">
+                    <span>📍 Local do Evento:</span>
+                    <strong th:text="${evento.local}">Allianz Parque</strong>
+                </div>
+                
+                <div class="linha-info">
+                    <span>📅 Data e Horário:</span>
+                    <strong th:text="${#temporals.format(evento.dataEvento, 'dd/MM/yyyy - HH:mm')}">Data</strong>
+                </div>
+
+                <div class="linha-info">
+                    <span>🎫 Setor Adquirido:</span>
+                    <strong th:text="${evento.tiposIngresso}">Pista Premium</strong>
+                </div>
+
+                <div class="linha-info">
+                    <span>🔢 Ingressos Comprados:</span>
+                    <strong th:text="${quantidadeComprada} + 'x'">1x</strong>
+                </div>
+
+                <div class="linha-info">
+                    <span>💵 Preço Unitário:</span>
+                    <strong th:text="'R$ ' + ${evento.precoBase}">R$ 0.00</strong>
+                </div>
+
+                <div class="bloco-total">
+                    <span>VALOR TOTAL DA COMPRA:</span>
+                    <strong th:text="'R$ ' + ${valorTotal}">R$ 0.00</strong>
+                </div>
+            </div>
+
+            <a th:href="@{/eventos}" class="btn-voltar-home">🎯 VOLTAR PARA A HOME</a>
+
+            <p class="instrucoes-rodape">
+                * O seu voucher digital foi validado no nosso banco de dados MySQL.<br>
+                O estoque do evento foi atualizado automaticamente. Apresente este ecrã ou o seu documento à entrada do recinto.
+            </p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>TicketRosario Inc. • Sistema de Venda de Bilhetes Dinâmico</p>
+		<p>Desenvolvido por Gleyson Rosário</p>
+    </footer>
 </div>
 
 </body>
